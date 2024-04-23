@@ -1,3 +1,5 @@
+import 'package:broker_join/helper/global_variables.dart';
+import 'package:broker_join/helper/widgets/loader_view.dart';
 import 'package:broker_join/screen/mainpage/main_view.dart';
 import 'package:broker_join/screen/phoneNo_verify/phoneNo_verify_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -8,26 +10,33 @@ import 'package:sizer/sizer.dart';
 
 class PhoneNoVerifyView extends StatelessWidget {
   PhoneNoVerifyView({super.key});
-  PhoneNoVerifyViewModel viewMode = Get.put(PhoneNoVerifyViewModel());
+  PhoneNoVerifyViewModel viewModel = Get.put(PhoneNoVerifyViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(height: 5.h, width: double.infinity),
-          Image(image: AssetImage("images/logo.png")),
-          SizedBox(height: 5.h),
-          verifytext(),
-          SizedBox(height: 5.h),
-          digittext(),
-          const SizedBox(height: 1),
-          phoneNotext(),
-          SizedBox(height: 5.h),
-          textfield(viewMode.otp),
-          SizedBox(height: 7.h),
-          verifybutton(),
-          SizedBox(height: 5.h),
-          changeNo(),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 5.h, width: double.infinity),
+                Image(image: AssetImage("images/logo.png")),
+                SizedBox(height: 5.h),
+                verifytext(),
+                SizedBox(height: 5.h),
+                digittext(),
+                const SizedBox(height: 1),
+                phoneNotext(),
+                SizedBox(height: 5.h),
+                textfield(viewModel.otp),
+                SizedBox(height: 7.h),
+                verifybutton(),
+                SizedBox(height: 5.h),
+                changeNo(),
+              ],
+            ),
+          ),
+          LoaderView()
         ],
       ),
     );
@@ -45,11 +54,11 @@ class PhoneNoVerifyView extends StatelessWidget {
 
   //--------------------------------
   Widget phoneNotext() {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("that you have recieved on "),
-        Text(" 0123456789"),
+        Text(GlobalVariables.number.toString()),
       ],
     );
   }
@@ -87,7 +96,8 @@ class PhoneNoVerifyView extends StatelessWidget {
   Widget verifybutton() {
     return GestureDetector(
       onTap: () {
-        Get.to(() => MainView());
+        // Get.to(() => MainView());
+        viewModel.verify_otp();
       },
       child: Container(
         height: 6.h,

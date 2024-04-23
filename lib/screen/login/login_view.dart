@@ -1,3 +1,4 @@
+import 'package:broker_join/helper/widgets/loader_view.dart';
 import 'package:broker_join/screen/login/login_viewmodel.dart';
 import 'package:broker_join/screen/sign_up/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -12,65 +13,71 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 5.h, width: double.infinity),
-          Image(image: AssetImage("images/logo.png")),
-          SizedBox(height: 5.h),
-          const Text(
-            "Sign in to enable locked features",
-            style: TextStyle(fontSize: 17),
+        body: SafeArea(
+            child: Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 5.h, width: double.infinity),
+              Image(image: AssetImage("images/logo.png")),
+              SizedBox(height: 5.h),
+              const Text(
+                "Sign in to enable locked features",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 5.h),
+              textfield(viewModel.mobile, "Mobile", "Enter Number"),
+              SizedBox(height: 3.h),
+              textfield2(viewModel.password, "Password", "Enter Password"),
+              SizedBox(height: 5.h),
+              loginbutton(),
+              SizedBox(height: 2.h),
+              forgettext(),
+              SizedBox(height: 2.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Does not have account? ",
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => SignUpView());
+                    },
+                    child: const Text(
+                      "Sign up",
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
-          SizedBox(height: 2.h),
-          Padding(
-            padding: EdgeInsets.only(right: 10.w),
-            child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Text(
-                  "Mobile",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(width: 2.w),
-                textfield(viewModel.mobile)
-              ],
-            ),
-          ),
-          SizedBox(height: 2.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            // padding: EdgeInsets.only(right: 10.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Text(
-                  "Password",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(width: 2.w),
-                textfield(viewModel.passsword)
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h),
-          loginbutton(),
-          SizedBox(height: 2.h),
-          forgettext(),
-        ],
-      ),
-    );
+        ),
+        LoaderView()
+      ],
+    )));
   }
 
   //----------------------------
   Widget loginbutton() {
-    return Container(
-      height: 6.h,
-      width: 40.w,
-      decoration: BoxDecoration(
-          color: Colors.black, borderRadius: BorderRadius.circular(12)),
-      child: const Center(
-          child: Text("Login", style: TextStyle(color: Colors.white))),
+    return GestureDetector(
+      onTap: () {
+        viewModel.login();
+      },
+      child: Container(
+        height: 6.h,
+        width: 40.w,
+        decoration: BoxDecoration(
+            color: Colors.black, borderRadius: BorderRadius.circular(12)),
+        child: const Center(
+            child: Text("Login", style: TextStyle(color: Colors.white))),
+      ),
     );
   }
 
@@ -78,36 +85,68 @@ class LoginView extends StatelessWidget {
   Widget forgettext() {
     return GestureDetector(
         onTap: () {
-          Get.to(() => SignUpView());
+          // Get.to(() => SignUpView());
         },
         child: Text("Forgot password"));
   }
   //-----------------------------
 
-  Widget textfield(mobile) {
+  Widget textfield(mobile, lable, hint) {
     return Center(
-        child: Container(
-      width: 50.w,
-      height: 7.h,
-      //width: 250,
-      //height: 50,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black, // Border color
-          width: 1, // Border width
-        ),
-        borderRadius: BorderRadius.circular(20.0), // Border radius
-      ),
-      child: TextFormField(
-        controller: mobile,
-        decoration: const InputDecoration(
-          border: InputBorder.none, // Hide the default border
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 10.0), // Optional padding
-          //hintText: 'Enter your text here',
-          hintStyle: TextStyle(color: Colors.grey),
+      child: SizedBox(
+        width: 90.w,
+        child: TextFormField(
+          keyboardType: TextInputType.number,
+          controller: mobile,
+          decoration: InputDecoration(
+            labelText: lable,
+            hintText: hint,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            border: OutlineInputBorder(
+              borderRadius:
+                  BorderRadius.circular(20), // Adjust the value as needed
+              borderSide: BorderSide(color: Colors.grey), // Border color
+            ),
+          ),
         ),
       ),
-    ));
+    );
+  }
+
+  //--------------------------------
+  Widget textfield2(mobile, lable, hint) {
+    return Center(
+      child: SizedBox(
+          width: 90.w,
+          child: Obx(
+            () => TextFormField(
+              keyboardType: TextInputType.text,
+              obscureText: viewModel.obscurePassword.value,
+              controller: mobile,
+              decoration: InputDecoration(
+                labelText: lable,
+                hintText: hint,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    viewModel.obscurePassword.value =
+                        !viewModel.obscurePassword.value;
+                  },
+                  child: Icon(
+                    (viewModel.obscurePassword.value)
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(20), // Adjust the value as needed
+                  borderSide: BorderSide(color: Colors.grey), // Border color
+                ),
+              ),
+            ),
+          )),
+    );
   }
 }

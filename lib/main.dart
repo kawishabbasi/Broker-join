@@ -1,4 +1,8 @@
+import 'package:broker_join/other/video.dart';
+import 'package:broker_join/screen/request_page/request_view.dart';
+import 'package:broker_join/screen/reset_password/reset_password_view.dart';
 import 'package:broker_join/screen/splash_screen/splash_screen_view.dart';
+import 'package:broker_join/screen/user_profile_properties/user_profile_properties_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:sizer/sizer.dart';
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SplashScreenView(),
+        home: RequestView(),
       );
     });
   }

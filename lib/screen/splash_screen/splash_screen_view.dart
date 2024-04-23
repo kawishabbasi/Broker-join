@@ -1,4 +1,5 @@
 import 'package:broker_join/screen/login/login_view.dart';
+import 'package:broker_join/screen/sign_up/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -53,24 +54,68 @@ class SplashScreenView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Join Now",
-                        style: TextStyle(fontSize: 28, color: Colors.white)),
+                    RichText(
+                      text: const TextSpan(
+                        text: 'Join', // Move "Join" to the top TextSpan
+                        style: TextStyle(
+                          color: Colors.white, // Text color
+                          fontSize: 40,
+                          //decoration: TextDecoration.underline,
+                          decorationColor: Colors.white, // Underline color
+                          decorationStyle: TextDecorationStyle.solid,
+                          decorationThickness: 1, // Thickness of the underline
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: ' Now', // Move "Now" to the child TextSpan
+                            style: TextStyle(
+                              color: Colors.white,
+                              // No decoration needed here for "Now"
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // const Text("Join Now",
+                    //     style: TextStyle(
+                    //       fontSize: 50,
+                    //       color: Colors.white,
+                    //       decoration: TextDecoration.underline,
+                    //     )),
                     const Text("the  Premium",
                         style: TextStyle(fontSize: 28, color: Colors.white)),
                     const Text("Broker Community",
                         style: TextStyle(fontSize: 28, color: Colors.white)),
                     SizedBox(height: 3.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
                             onTap: () {
                               Get.to(() => LoginView());
                             },
-                            child: Text("Login",
-                                style: TextStyle(color: Colors.white))),
-                        Text("Sign up", style: TextStyle(color: Colors.white))
-                      ],
+                            child: const Text(
+                              "Login",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                          SizedBox(width: 20.w),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => SignUpView());
+                            },
+                            child: const Text(
+                              "Sign up",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

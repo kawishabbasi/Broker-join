@@ -37,6 +37,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   sizer: ^2.0.15
   get: ^4.6.6
+  dropdown_button2: ^2.3.9
+  http: ^0.13.3
+  multiple_images_picker: ^1.0.1
+  file_picker: ^4.0.0
+  carousel_slider: ^4.2.1
+  #video_player: ^2.2.13
+  #dropdown_button3: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +71,8 @@ flutter:
   assets:
     - images/splash.jpg
     - images/logo.png
+    - images/brokerjoinpic.png
+    - images/user_img.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

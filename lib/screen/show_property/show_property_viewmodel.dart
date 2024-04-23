@@ -1,0 +1,46 @@
+import 'package:broker_join/helper/api_base_helper.dart';
+import 'package:broker_join/helper/getx_helper.dart';
+import 'package:broker_join/helper/global_variables.dart';
+import 'package:broker_join/helper/urls.dart';
+import 'package:broker_join/screen/show_property/show_property_model.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+
+class ShowPropertyViewModel extends GetxController {
+  List<show_property> property = <show_property>[].obs;
+
+  @override
+  void onInit() {
+    // showproperty();
+    super.onInit();
+
+    print("---oninit");
+  }
+
+  @override
+  void onReady() {
+    showproperty();
+  }
+
+  //-------------
+  showproperty() async {
+    GlobalVariables.showLoader.value = true;
+    var res = await ApiBaseHelper().getMethod(url: Urls.show_property);
+
+    if (res['success'] == true) {
+      var data = res['property'] as List;
+      print(data);
+      if (data != null || data.length != 0) {
+        property = [];
+
+        property.addAll(data.map((e) => show_property.fromJson(e)));
+      }
+      print("777777777777777777777777777777777777777");
+      print("-------contact---${property}");
+    } else {
+      GetxHelper.showSnackBar(title: 'Error'.tr, message: res['message']);
+      print("-----------error----");
+    }
+    GlobalVariables.showLoader.value = false;
+  }
+}
