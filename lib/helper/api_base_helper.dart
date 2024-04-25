@@ -18,6 +18,8 @@ import 'package:http/http.dart' as http;
 class ApiBaseHelper {
   final String baseUrl = Urls.baseURL;
   final String token = GlobalVariables.token;
+  //'138|O7qXysEm1bnkVlCDCgwN9IBZPCjamc3twB44Zjd2';
+  //GlobalVariables.token;
 
   Future<dynamic> postMethod({required String url, dynamic body}) async {
     Map<String, String> header = {

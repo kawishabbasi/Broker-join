@@ -1,3 +1,4 @@
+import 'package:broker_join/clients/clients_main_page/clients_main_view.dart';
 import 'package:broker_join/helper/api_base_helper.dart';
 import 'package:broker_join/helper/getx_helper.dart';
 import 'package:broker_join/helper/global_variables.dart';
@@ -32,7 +33,8 @@ class LoginViewModel extends GetxController {
       GlobalVariables.user_id = res["data"]['id'];
       print(GlobalVariables.token);
       print(GlobalVariables.user_id);
-      Get.to(() => MainView());
+      // Get.to(() => MainView());
+      Get.to(() => ClientsMainPage());
     } else {
       GetxHelper.showSnackBar(
           title: 'Error'.tr, message: 'Incorrect Username or Password');

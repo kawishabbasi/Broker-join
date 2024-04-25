@@ -1,3 +1,4 @@
+import 'package:broker_join/clients/clients_main_page/clients_main_view.dart';
 import 'package:broker_join/other/video.dart';
 import 'package:broker_join/screen/request_page/request_view.dart';
 import 'package:broker_join/screen/reset_password/reset_password_view.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: RequestView(),
+        home: SplashScreenView(),
       );
     });
   }

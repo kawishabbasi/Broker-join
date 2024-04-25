@@ -26,6 +26,12 @@ class Urls {
   static String addMoreProperty = "addMoreProperty";
   static String profileInfo = "profileInfo";
   static String updateAbout = "updateAbout";
+  static String addClientProperty = "addClientProperty";
+  static String clientProperty = "clientProperty";
+  static String clientSingleProperty = "clientSingleProperty";
+  static String reqeustClientProposal = "reqeustClientProposal";
+  static String clientProposals = "clientProposals";
+  static String clientProposalsDetails = "clientProposalsDetails";
 
   static String sanadPdfLink =
       "https://sanadtaqat.plandstudios.com/public/pdf/laborTransferInvoices/";

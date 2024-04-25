@@ -13,6 +13,7 @@ class GlobalVariables {
   static int addproperty_check = 0;
   static String user_email = '';
   static String user_no = '';
+  static String ClientsSingleProperty_id = '';
   //--------------------------
   static RxString headline = ''.obs;
   static RxString current_company = ''.obs;

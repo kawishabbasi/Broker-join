@@ -208,7 +208,7 @@ class UserProfileProperties extends StatelessWidget {
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Date of birth : "),
+                  const Text("Date of birth : "),
                   Text(
                       "${GlobalVariables.dob == "" ? "N/A" : GlobalVariables.dob}")
                 ],
@@ -219,7 +219,7 @@ class UserProfileProperties extends StatelessWidget {
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Profession type : "),
+                  const Text("Profession type : "),
                   Text(
                       "${GlobalVariables.professional_type == "" ? "N/A" : GlobalVariables.professional_type}")
                 ],
