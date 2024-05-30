@@ -12,7 +12,7 @@ class ClientsSinglePropertyViewModel extends GetxController {
   TextEditingController proposal_proposal = TextEditingController();
   TextEditingController proposal_net_profit = TextEditingController();
   TextEditingController proposal_detail = TextEditingController();
-
+  RxString result2 = "".obs;
   final Rx<clientsproperties> propertydata = clientsproperties().obs;
 
   @override
@@ -76,6 +76,9 @@ class ClientsSinglePropertyViewModel extends GetxController {
         .postMethod(url: Urls.reqeustClientProposal, body: param);
     if (res['success'] == true) {
       print("--------send------");
+      GetxHelper.showSnackBar(
+          title: ''.tr, message: 'Proposal send has been successfully');
+      // Get.back();
       GlobalVariables.showLoader.value = false;
     } else {
       GetxHelper.showSnackBar(

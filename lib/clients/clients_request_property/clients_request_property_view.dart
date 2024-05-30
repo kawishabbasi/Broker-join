@@ -35,15 +35,22 @@ class ClientsRequestPropertyView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 2.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [purposedropdown(context), purposedropdown(context)],
-            ),
-            SizedBox(height: 2.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [citydropdown(context), monthlyrentdropdown(context)],
-            ),
+            purposedropdown(context),
+            SizedBox(height: 1.h),
+            citydropdown(context),
+            // SizedBox(height: 1.h),
+            // monthlyrentdropdown(context),
+            // SizedBox(height: 1.h),
+            // purposedropdown(context),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [purposedropdown(context), purposedropdown(context)],
+            // ),
+            // SizedBox(height: 2.h),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [citydropdown(context), monthlyrentdropdown(context)],
+            // ),
             SizedBox(height: 2.h),
             fintbutton(),
             SizedBox(height: 2.h),
@@ -66,77 +73,83 @@ class ClientsRequestPropertyView extends StatelessWidget {
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: Container(
-                                  height: 100,
-                                  width: 20.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Row(
-                                          children: [
-                                            SizedBox(width: 3.h),
-                                            Container(
-                                                height: 100,
-                                                width: 100,
-                                                decoration: BoxDecoration(
-                                                    // color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all()),
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0),
-                                                    child: const Image(
-                                                        image: AssetImage(
-                                                            "images/brokerjoinpic.png")))),
-                                            SizedBox(width: 3.h),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  viewmodel
-                                                      .clientsproperty[index]
-                                                      .price!,
-                                                  style: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Color(0xff09090A)),
-                                                ),
-                                                Text(
-                                                  viewmodel
-                                                      .clientsproperty[index]
-                                                      .price
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Color(0xffACACAC)),
-                                                ),
-                                                Text(
-                                                  viewmodel
-                                                      .clientsproperty[index]
-                                                      .view
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Color(0xffACACAC)),
-                                                )
-                                              ],
-                                            ),
-                                          ],
+                                child: SingleChildScrollView(
+                                  child: Container(
+                                    height: 100,
+                                    width: 20.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              SizedBox(width: 3.h),
+                                              Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all()),
+                                                  child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0),
+                                                      child: const Image(
+                                                          image: AssetImage(
+                                                              "images/brokerjoinpic.png")))),
+                                              SizedBox(width: 3.h),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  // Text(
+                                                  //   viewmodel
+                                                  //       .clientsproperty[index]
+                                                  //       .price!,
+                                                  //   style: const TextStyle(
+                                                  //       fontSize: 15,
+                                                  //       fontWeight:
+                                                  //           FontWeight.w500,
+                                                  //       color:
+                                                  //           Color(0xff09090A)),
+                                                  // ),
+                                                  Text(
+                                                    viewmodel
+                                                        .clientsproperty[index]
+                                                        .price
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Color(0xffACACAC)),
+                                                  ),
+                                                  Text(
+                                                    viewmodel
+                                                        .clientsproperty[index]
+                                                        .view
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color:
+                                                            Color(0xffACACAC)),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: 2.h),
-                                    ],
+                                        SizedBox(width: 2.h),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -164,7 +177,7 @@ class ClientsRequestPropertyView extends StatelessWidget {
           ),
           SizedBox(width: 2.w),
           Container(
-            width: 25.w,
+            width: 50.w,
             height: 7.h,
             decoration: BoxDecoration(
               border: Border.all(),
@@ -225,7 +238,7 @@ class ClientsRequestPropertyView extends StatelessWidget {
           ),
           SizedBox(width: 2.w),
           Container(
-            width: 23.w,
+            width: 50.w,
             height: 7.h,
             decoration: BoxDecoration(
               border: Border.all(),
@@ -286,7 +299,7 @@ class ClientsRequestPropertyView extends StatelessWidget {
           ),
           SizedBox(width: 2.w),
           Container(
-            width: 20.w,
+            width: 50.w,
             height: 7.h,
             decoration: BoxDecoration(
               border: Border.all(),
@@ -347,7 +360,7 @@ class ClientsRequestPropertyView extends StatelessWidget {
           ),
           SizedBox(width: 2.w),
           Container(
-            width: 20.w,
+            width: 50.w,
             height: 7.h,
             decoration: BoxDecoration(
               border: Border.all(),

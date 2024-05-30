@@ -8,11 +8,18 @@ import 'package:get/get.dart';
 class ClientsRequest extends GetxController {
   @override
   void onInit() {
-    clientsshowproperty();
+    //clientsshowproperty();
     // showproperty();
     super.onInit();
 
     print("---oninit");
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    clientsshowproperty();
   }
 
   List<clientsrequestproperty> clientsproperty = <clientsrequestproperty>[].obs;
@@ -30,14 +37,16 @@ class ClientsRequest extends GetxController {
   //-------------------------
 
   clientsshowproperty() async {
+    print("1111111111111111111111111111111111111111111111");
     GlobalVariables.showLoader.value = true;
     var res = await ApiBaseHelper().getMethod(url: Urls.clientProperty);
     if (res['success'] == true) {
+      print("222222222222222222222222222222222222222222222");
       var data = res['property'] as List;
       print(data);
       if (data != null || data.length != 0) {
         clientsproperty = [];
-
+        print("3333333333333333333333333333333333");
         clientsproperty
             .addAll(data.map((e) => clientsrequestproperty.fromJson(e)));
       }

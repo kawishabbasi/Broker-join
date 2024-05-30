@@ -32,6 +32,12 @@ class Urls {
   static String reqeustClientProposal = "reqeustClientProposal";
   static String clientProposals = "clientProposals";
   static String clientProposalsDetails = "clientProposalsDetails";
+  static String acceptClientProposal = "acceptClientProposal";
+  static String clientBrokerAccepectedProposal =
+      "clientBrokerAccepectedProposal";
+  static String clientCities = "clientCities";
+  static String cancel_deal = "cancel-deal";
+  static String clientBrokerSendMessage = "clientBrokerSendMessage";
 
   static String sanadPdfLink =
       "https://sanadtaqat.plandstudios.com/public/pdf/laborTransferInvoices/";

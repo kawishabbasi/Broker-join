@@ -24,20 +24,27 @@ class ShowPropertyViewModel extends GetxController {
 
   //-------------
   showproperty() async {
+    print("-------------------1----------------------");
     GlobalVariables.showLoader.value = true;
     var res = await ApiBaseHelper().getMethod(url: Urls.show_property);
-
+    print("-------------------2----------------------");
     if (res['success'] == true) {
+      print("-------------------3----------------------");
       var data = res['property'] as List;
+      print("-------------------4----------------------");
       print(data);
+      print("-------------------5----------------------");
       if (data != null || data.length != 0) {
         property = [];
-
+        print("-------------------6----------------------");
         property.addAll(data.map((e) => show_property.fromJson(e)));
+        print("-------------------7----------------------");
       }
+      print("-------------------8---------------------");
       print("777777777777777777777777777777777777777");
       print("-------contact---${property}");
     } else {
+      GlobalVariables.showLoader.value = false;
       GetxHelper.showSnackBar(title: 'Error'.tr, message: res['message']);
       print("-----------error----");
     }

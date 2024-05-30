@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddPropertyViewModel extends GetxController {
+  RxBool payment_cash = false.obs;
+  RxBool payment_install = false.obs;
+  TextEditingController cash = TextEditingController();
+  TextEditingController install = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
@@ -108,6 +112,7 @@ class AddPropertyViewModel extends GetxController {
       "city": city.text.toString(),
       "district": district.text.toString(),
       "project_type": project_type.value.toString(),
+      "property_type": project_type.value.toString(),
       "project_name": project_name.text.toString(),
       "size": size.text.toString(),
       "floor": floor.text.toString(),
@@ -118,13 +123,20 @@ class AddPropertyViewModel extends GetxController {
       "street_width": street_with.text.toString(),
       "finish_type": finish_type.value.toString(),
       "year_built": year_build.text.toString(),
-      "payment_type": payment_type.value.toString(),
-      "price": price.text.toString(),
+
+      "is_cash": payment_cash.toString(),
+      "is_installment": payment_install.toString(),
+      "cash_price": cash.text.toString(),
+      "inst_price": install.text.toString(),
+
+      //"payment_type": payment_type.value.toString(),
+      //"price": price.text.toString(),
       "down_payment": down_payment.text.toString(),
       "years_installment": years_installment.text.toString(),
+      "yearly_installment": years_installment.text.toString(),
       "quartly_installment": quartly_installment.text.toString(),
       "delivery_payment": delivery_payment.text.toString(),
-      "cash_price": cash_price.text.toString(),
+      //"cash_price": cash_price.text.toString(),
       "description": description.text.toString(),
       //"lat": lat.text.toString(),
       //"lng": city.text.toString(),
@@ -137,10 +149,11 @@ class AddPropertyViewModel extends GetxController {
       "developer": developer.text.toString(),
       "owner": owner.text.toString(),
       "about_developer": about_the_developer.text.toString(),
-      "privious_work": previous_work.text.toString(),
+      "previous_work": previous_work.text.toString(),
       "unite_type": units_type.text.toString(),
       "project_features": project_feature.text.toString(),
       "payment_terms": payment_terms.text.toString(),
+      "user_id": GlobalVariables.user_id,
     };
     print("--------login");
     var res =
@@ -158,6 +171,7 @@ class AddPropertyViewModel extends GetxController {
         Get.to(() => AddMorePropertyView());
       }
     } else {
+      GlobalVariables.showLoader.value = false;
       GetxHelper.showSnackBar(title: 'Error', message: res['message']);
     }
     GlobalVariables.showLoader.value = false;

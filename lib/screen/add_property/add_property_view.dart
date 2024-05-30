@@ -1,3 +1,4 @@
+import 'package:broker_join/helper/getx_helper.dart';
 import 'package:broker_join/screen/add_property/add_property-viewmodel.dart';
 import 'package:broker_join/screen/add_property/add_property2_view.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -222,64 +223,68 @@ class AddPropertyView extends StatelessWidget {
           SizedBox(height: 1.h),
           textfield("Year built / deliverid", viewModel.year_build),
           SizedBox(height: 1.h),
+          payment_method_chekbox(),
+          SizedBox(height: 1.h),
+          price(),
+          SizedBox(height: 1.h),
 //--------------------------------------------
-          Padding(
-              padding: EdgeInsets.only(right: 10.w),
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                const Text(
-                  "Payment type",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(width: 2.w),
-                Container(
-                  width: 50.w,
-                  height: 7.h,
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Obx(
-                    () => Center(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          isExpanded: true,
-                          hint: Text(
-                            "Please select",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context).hintColor,
-                            ),
-                          ),
-                          items: viewModel.Paymenttype.map((String item) {
-                            return DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 119, 115, 115),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          value: viewModel.Paymenttype.contains(
-                                  viewModel.payment_type.value)
-                              ? viewModel.payment_type.value
-                              : null,
+          // Padding(
+          //     padding: EdgeInsets.only(right: 10.w),
+          //     child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          //       const Text(
+          //         "Payment type",
+          //         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          //       ),
+          //       SizedBox(width: 2.w),
+          //       Container(
+          //         width: 50.w,
+          //         height: 7.h,
+          //         decoration: BoxDecoration(
+          //           border: Border.all(),
+          //           borderRadius: BorderRadius.circular(20),
+          //         ),
+          //         child: Obx(
+          //           () => Center(
+          //             child: DropdownButtonHideUnderline(
+          //               child: DropdownButton2(
+          //                 isExpanded: true,
+          //                 hint: Text(
+          //                   "Please select",
+          //                   style: TextStyle(
+          //                     fontSize: 14,
+          //                     color: Theme.of(context).hintColor,
+          //                   ),
+          //                 ),
+          //                 items: viewModel.Paymenttype.map((String item) {
+          //                   return DropdownMenuItem<String>(
+          //                     value: item,
+          //                     child: Text(
+          //                       item,
+          //                       style: TextStyle(
+          //                         color: Color.fromARGB(255, 119, 115, 115),
+          //                       ),
+          //                     ),
+          //                   );
+          //                 }).toList(),
+          //                 value: viewModel.Paymenttype.contains(
+          //                         viewModel.payment_type.value)
+          //                     ? viewModel.payment_type.value
+          //                     : null,
 
-                          //value: viewModel.selectedValue2.value,
-                          onChanged: (String? value) {
-                            viewModel.payment_type.value = value!;
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ])),
+          //                 //value: viewModel.selectedValue2.value,
+          //                 onChanged: (String? value) {
+          //                   viewModel.payment_type.value = value!;
+          //                 },
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ])),
 //---------------------------------------------
           ///textfield("Payment type", viewModel.payment_type),
-          SizedBox(height: 1.h),
-          textfield("price", viewModel.price),
+          //SizedBox(height: 1.h),
+          //  textfield("price", viewModel.price),
           SizedBox(height: 1.h),
           textfield("Down payment", viewModel.down_payment),
           SizedBox(height: 1.h),
@@ -345,7 +350,26 @@ class AddPropertyView extends StatelessWidget {
   Widget nextbutton() {
     return GestureDetector(
       onTap: () {
-        Get.to(() => AddProperty2View());
+        if ((viewModel.payment_cash.value == true &&
+                viewModel.cash.text != '') ||
+            (viewModel.payment_install.value == true &&
+                viewModel.install.text != '')) {
+          if (viewModel.payment_cash.value == true &&
+              viewModel.cash.text != '') {
+            print("------cash price----");
+          }
+          if (viewModel.payment_install.value == true &&
+              viewModel.install.text != '') {
+            print("-----instal price----");
+          }
+          Get.to(() => AddProperty2View());
+          print("----999----");
+        } else {
+          GetxHelper.showSnackBar(
+              title: 'Error', message: 'Enter payment method or price');
+        }
+
+        //Get.to(() => AddProperty2View());
       },
       child: Container(
         height: 6.h,
@@ -355,6 +379,105 @@ class AddPropertyView extends StatelessWidget {
         child: const Center(
             child: Text("Next", style: TextStyle(color: Colors.white))),
       ),
+    );
+  }
+
+  //-----------------------------------\
+  Widget payment_method_chekbox() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Payment method"),
+        Obx(
+          () => Checkbox(
+            value: viewModel.payment_cash.value,
+            onChanged: (value) {
+              //print(value);
+              viewModel.payment_cash.value = value!;
+              print('---cash---${viewModel.payment_cash.value}');
+            },
+            fillColor: MaterialStatePropertyAll(Colors.white),
+            activeColor: Colors.white,
+            checkColor: Colors.black,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        const SizedBox(width: 5),
+        const Text("Cash"),
+        const SizedBox(width: 10),
+        Obx(
+          () => Checkbox(
+            value: viewModel.payment_install.value,
+            onChanged: (value) {
+              viewModel.payment_install.value = value!;
+              print('---install---${viewModel.payment_install.value}');
+            },
+            fillColor: MaterialStatePropertyAll(Colors.white),
+            activeColor: Colors.white,
+            checkColor: Colors.black,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        SizedBox(width: 5),
+        Text("Installment"),
+      ],
+    );
+  }
+
+  //----------------------------------
+  Widget price() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Price"),
+        SizedBox(width: 2.w),
+        Center(
+          child: Container(
+            width: 34.w,
+            height: 7.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black, // Border color
+                width: 1, // Border width
+              ),
+              borderRadius: BorderRadius.circular(20.0), // Border radius
+            ),
+            child: TextFormField(
+              controller: viewModel.cash,
+              decoration: const InputDecoration(
+                border: InputBorder.none, // Hide the default border
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10.0), // Optional padding
+                hintText: 'Cash price',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 2.w),
+        Center(
+            child: Container(
+          width: 34.w,
+          height: 7.h,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black, // Border color
+              width: 1, // Border width
+            ),
+            borderRadius: BorderRadius.circular(20.0), // Border radius
+          ),
+          child: TextFormField(
+            controller: viewModel.install,
+            decoration: const InputDecoration(
+              border: InputBorder.none, // Hide the default border
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10.0), // Optional padding
+              hintText: 'Inst. price',
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ))
+      ],
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:broker_join/clients/clients_main_page/clients_main_view.dart';
+import 'package:broker_join/other/google_map/google_map_view.dart';
+import 'package:broker_join/other/textformfield.dart';
 import 'package:broker_join/other/video.dart';
 import 'package:broker_join/screen/request_page/request_view.dart';
 import 'package:broker_join/screen/reset_password/reset_password_view.dart';
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: SplashScreenView(),
+        //home: TextFormFiledView(),
       );
     });
   }

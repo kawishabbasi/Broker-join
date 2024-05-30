@@ -1,4 +1,5 @@
 import 'package:broker_join/clients/Sell_rent_property/sell_rent_property_viewmodel.dart';
+import 'package:broker_join/helper/getx_helper.dart';
 import 'package:broker_join/helper/widgets/loader_view.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
@@ -59,9 +60,13 @@ class SellRentPropertyView extends StatelessWidget {
               SizedBox(height: 2.h),
               textfield("Years build / deliverid", viewModel.Years_build),
               SizedBox(height: 2.h),
-              textfield("Payment method", viewModel.Payment_method),
+              // textfield("Payment method", viewModel.Payment_method),
+              // SizedBox(height: 2.h),
+              payment_method_chekbox(),
               SizedBox(height: 2.h),
-              textfield("Price", viewModel.price),
+              // textfield("Price", viewModel.price),
+              // SizedBox(height: 2.h),
+              price(),
               SizedBox(height: 2.h),
               textfield("Broker commision", viewModel.broker_commission),
               SizedBox(height: 2.h),
@@ -187,7 +192,9 @@ class SellRentPropertyView extends StatelessWidget {
 
                     //value: viewModel.selectedValue2.value,
                     onChanged: (String? value) {
+                      print("-----city----");
                       viewModel.property_city.value = value!;
+                      print(viewModel.property_city.value);
                     },
                   ),
                 ),
@@ -357,11 +364,139 @@ class SellRentPropertyView extends StatelessWidget {
     );
   }
 
+  //----------------------------------
+  Widget payment_method_chekbox() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Payment method"),
+        Obx(
+          () => Checkbox(
+            value: viewModel.payment_cash.value,
+            onChanged: (value) {
+              //print(value);
+              viewModel.payment_cash.value = value!;
+              print('---cash---${viewModel.payment_cash.value}');
+            },
+            fillColor: MaterialStatePropertyAll(Colors.white),
+            activeColor: Colors.white,
+            checkColor: Colors.black,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        const SizedBox(width: 5),
+        const Text("Cash"),
+        const SizedBox(width: 10),
+        Obx(
+          () => Checkbox(
+            value: viewModel.payment_install.value,
+            onChanged: (value) {
+              viewModel.payment_install.value = value!;
+              print('---install---${viewModel.payment_install.value}');
+            },
+            fillColor: MaterialStatePropertyAll(Colors.white),
+            activeColor: Colors.white,
+            checkColor: Colors.black,
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        SizedBox(width: 5),
+        Text("Installment"),
+      ],
+    );
+  }
+
+  //----------------------------------
+  Widget price() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Price"),
+        SizedBox(width: 2.w),
+        Center(
+          child: Container(
+            width: 34.w,
+            height: 7.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black, // Border color
+                width: 1, // Border width
+              ),
+              borderRadius: BorderRadius.circular(20.0), // Border radius
+            ),
+            child: TextFormField(
+              controller: viewModel.cash,
+              decoration: const InputDecoration(
+                border: InputBorder.none, // Hide the default border
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10.0), // Optional padding
+                hintText: 'Cash price',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 2.w),
+        Center(
+            child: Container(
+          width: 34.w,
+          height: 7.h,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black, // Border color
+              width: 1, // Border width
+            ),
+            borderRadius: BorderRadius.circular(20.0), // Border radius
+          ),
+          child: TextFormField(
+            controller: viewModel.install,
+            decoration: const InputDecoration(
+              border: InputBorder.none, // Hide the default border
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 10.0), // Optional padding
+              hintText: 'Inst. price',
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ))
+      ],
+    );
+  }
+
   //------------------------------------
   Widget publishpropertybutton() {
     return GestureDetector(
       onTap: () {
-        viewModel.addclientproperty();
+        if ((viewModel.payment_cash.value == true &&
+                viewModel.cash.text != '') ||
+            (viewModel.payment_install.value == true &&
+                viewModel.install.text != '')) {
+          if (viewModel.payment_cash.value == true &&
+              viewModel.cash.text != '') {
+            print("------cash price----");
+          }
+          if (viewModel.payment_install.value == true &&
+              viewModel.install.text != '') {
+            print("-----instal price----");
+          }
+          print("----999----");
+          viewModel.addclientproperty();
+        } else {
+          GetxHelper.showSnackBar(
+              title: 'Error', message: 'Enter payment method or price');
+        }
+
+        // if (viewModel.payment_cash.value == true && viewModel.cash.text != '') {
+        //   print("------cash price----");
+        // }
+        // if (viewModel.payment_install.value == true &&
+        //     viewModel.install.text != '') {
+        //   print("-----instal price----");
+        // }
+        // print("----999----");
+        // // viewModel.addclientproperty();
+        // GetxHelper.showSnackBar(
+        //     title: 'Error', message: 'Enter payment method or price');
       },
       child: Container(
         height: 6.h,

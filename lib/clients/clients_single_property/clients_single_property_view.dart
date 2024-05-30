@@ -67,8 +67,22 @@ class ClientsSinglePropertyView extends StatelessWidget {
                               infotext('Purpose :',
                                   '${viewModel.data['user_type'] ?? ""}'),
                               SizedBox(height: 1.h),
-                              infotext("Price :",
-                                  "${viewModel.data['price'] ?? ""}"),
+                              GestureDetector(
+                                onTap: () {
+                                  String priceString = viewModel.data['price'];
+                                  double price = double.parse(priceString);
+                                  double divisor =
+                                      10; // You can directly use a number here
+
+                                  double result = price / divisor;
+                                  print(result);
+                                  // double i = (viewModel.data['price'] / '10');
+                                  //print(i);
+                                  print("price====");
+                                },
+                                child: infotext("Price :",
+                                    "${viewModel.data['price'] ?? ""}"),
+                              ),
                               SizedBox(height: 1.h),
                               infotext("Payment method :",
                                   "${viewModel.data['payment_type'] ?? ""}"),
@@ -108,7 +122,7 @@ class ClientsSinglePropertyView extends StatelessWidget {
             ],
           ),
         ),
-        LoaderView(),
+        // LoaderView(),
       ],
     ));
   }
@@ -117,7 +131,7 @@ class ClientsSinglePropertyView extends StatelessWidget {
   Widget nametext() {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ClientPropertyProposalView());
+        // Get.to(() => ClientPropertyProposalView());
       },
       child: const Text(
         "Apartment 142 SQM For sale Mivida",
@@ -203,6 +217,19 @@ class ClientsSinglePropertyView extends StatelessWidget {
   Widget proposalbutton(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        //-------------------------
+
+        //String priceString = viewModel.data['price'];
+        // String priceString = '5000';
+        // double price = double.parse(priceString);
+        // double divisor = 10; // You can directly use a number here
+        // double result = price / divisor;
+        // print(result);
+        // String result2 = result.toString();
+        // print(result2);
+        // viewModel.proposal_net_profit.text = result2.toString();
+        // print(viewModel.proposal_net_profit.toString());
+        //-------------------------
         showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
@@ -284,6 +311,29 @@ class ClientsSinglePropertyView extends StatelessWidget {
                                   border: InputBorder
                                       .none, // Remove the bottom line
                                 ),
+                                onChanged: (Value) {
+                                  //print(Value);
+                                  //String priceString = viewModel.data['price'];
+                                  String priceString = viewModel
+                                      .proposal_proposal.text
+                                      .toString();
+                                  double price = double.parse(priceString);
+                                  double divisor =
+                                      10; // You can directly use a number here
+                                  double result = price / divisor;
+                                  print(result);
+                                  viewModel.result2.value = result.toString();
+                                  // viewModel.proposal_net_profit =
+                                  //   viewModel.result2.value.toString();
+                                  print(viewModel.result2.value);
+                                  viewModel.proposal_net_profit.text =
+                                      viewModel.result2.value.toString();
+                                  if (viewModel.result2.value == "") {
+                                    print("-------cleare------");
+                                  }
+                                  //String result2 = result.toString();
+                                  //print(result2);
+                                },
                               ),
                             ),
                             Container(
@@ -320,13 +370,25 @@ class ClientsSinglePropertyView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(width: 0.5),
+                            // SizedBox(
+                            //   width: 45.w,
+                            //   child:
+                            //       //Obx(
+                            //       //() =>
+                            //       Text(
+                            //           '${viewModel.proposal_net_profit.value.toString()}'),
+                            //   // ),
+                            // ),
                             SizedBox(
                               width: 45.w,
-                              child: TextFormField(
-                                controller: viewModel.proposal_net_profit,
-                                decoration: const InputDecoration(
-                                  border: InputBorder
-                                      .none, // Remove the bottom line
+                              child: Obx(
+                                () => TextFormField(
+                                  controller: viewModel.proposal_net_profit,
+                                  decoration: InputDecoration(
+                                    hintText: viewModel.result2.value,
+                                    border: InputBorder
+                                        .none, // Remove the bottom line
+                                  ),
                                 ),
                               ),
                             ),

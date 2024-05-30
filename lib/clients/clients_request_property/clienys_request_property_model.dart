@@ -11,7 +11,7 @@ class clientsrequestproperty {
   String? floors;
   String? bathrooms;
   String? view;
-  int? brokerCommission;
+  String? brokerCommission;
   int? timeline;
   String? createdAt;
   String? updatedAt;

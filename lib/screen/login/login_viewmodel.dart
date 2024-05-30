@@ -33,8 +33,12 @@ class LoginViewModel extends GetxController {
       GlobalVariables.user_id = res["data"]['id'];
       print(GlobalVariables.token);
       print(GlobalVariables.user_id);
-      // Get.to(() => MainView());
-      Get.to(() => ClientsMainPage());
+      GlobalVariables.showLoader.value = false;
+      if (res['data']['professional_type'] == 'user') {
+        Get.to(() => ClientsMainPage());
+      } else if (res['data']['professional_type'] == 'broker') {
+        Get.to(() => MainView());
+      }
     } else {
       GetxHelper.showSnackBar(
           title: 'Error'.tr, message: 'Incorrect Username or Password');

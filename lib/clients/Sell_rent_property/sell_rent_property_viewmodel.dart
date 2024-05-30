@@ -1,3 +1,4 @@
+import 'package:broker_join/clients/Sell_rent_property/city_model.dart';
 import 'package:broker_join/helper/api_base_helper.dart';
 import 'package:broker_join/helper/getx_helper.dart';
 import 'package:broker_join/helper/global_variables.dart';
@@ -18,6 +19,25 @@ class SellRentPropertyViewModel extends GetxController {
   TextEditingController price = TextEditingController();
   TextEditingController broker_commission = TextEditingController();
   TextEditingController timeline = TextEditingController();
+  TextEditingController cash = TextEditingController();
+  TextEditingController install = TextEditingController();
+  RxBool payment_cash = false.obs;
+  RxBool payment_install = false.obs;
+  List<cities> client_city = <cities>[].obs;
+
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInit
+  //   super.onInit();
+  //   pro_city();
+  // }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    pro_city();
+  }
 
   final List<String> purposetype = [
     'Investiment',
@@ -25,11 +45,14 @@ class SellRentPropertyViewModel extends GetxController {
   ];
   RxString purpose_type = "".obs;
   //------------------------
+  //List<String> city = [];
   final List<String> city = [
-    'Cairo',
-    'Rawalpindi',
+    "rawalpindi",
+    "lahore",
+    "karachi",
   ];
   RxString property_city = "".obs;
+  //RxList<dynamic> city = [].obs;
   //---------------------------
   final List<String> propertytype = [
     'Compound',
@@ -55,6 +78,38 @@ class SellRentPropertyViewModel extends GetxController {
     'Without finish',
   ];
   RxString finish_type = "".obs;
+  //-----------------------------
+  List<String> cityTitles = []; // List to store city titles
+  pro_city() async {
+    GlobalVariables.showLoader.value = true;
+    var res = await ApiBaseHelper().getMethod(url: Urls.clientCities);
+    if (res['success'] == true) {
+      print("------proposal--====");
+      var data = res['cities'] as List;
+      print(data);
+      if (data != null && data.isNotEmpty) {
+        // Clear existing city list
+        city.clear();
+        // Add cities from the response to the city list
+        //city.addAll(data.map<String>((e) => e.toString()));
+        //-----------
+
+        print('----city titles----${cityTitles}');
+      }
+
+      // if (data != null || data.length != 0) {
+      //   client_city = [];
+
+      //   client_city.addAll(data.map((e) => cities.fromJson(e)));
+      // }
+
+      print("-------city---${city}");
+    } else {
+      GetxHelper.showSnackBar(title: 'Error'.tr, message: res['message']);
+      print("-----------error----");
+    }
+    GlobalVariables.showLoader.value = false;
+  }
 
   //--------------------------
   addclientproperty() async {
@@ -67,16 +122,20 @@ class SellRentPropertyViewModel extends GetxController {
       "size": size.text.toString(),
       "bedrooms": bedrooms.text.toString(),
       "bathrooms": bathrooms.text.toString(),
-      "view": view.value.toString(),
+      "view": view.text.toString(),
       "street_width": Street_width.text.toString(),
       "finish_type": finish_type.toString(),
       "floors": floor.text.toString(),
       "year_built": Years_build.text.toString(),
       "payment_type": Payment_method.value.toString(),
+      "is_cash": payment_cash.toString(),
+      "is_installment": payment_install.toString(),
+      "cash_price": cash.text.toString(),
+      "inst_price": install.text.toString(),
       "price": price.text.toString(),
       "brokerCommission": broker_commission.text.toString(),
       "timeline": timeline.text.toString(),
-      "user_id": 42,
+      "user_id": GlobalVariables.user_id,
     };
 
     var res = await ApiBaseHelper()
@@ -87,6 +146,8 @@ class SellRentPropertyViewModel extends GetxController {
       // GlobalVariables.property_id = res['property']['id'];
       // print("---------property_id----------${GlobalVariables.property_id}");
       print("------------------2----------------");
+      GetxHelper.showSnackBar(
+          title: '', message: 'Property publish successfully');
       GlobalVariables.showLoader.value = false;
     } else {
       GetxHelper.showSnackBar(title: 'Error', message: res['message']);

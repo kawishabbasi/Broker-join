@@ -22,6 +22,7 @@ class ClientPropertyProposalViewModel extends GetxController {
         url: Urls.clientProposals + "?user_id=${GlobalVariables.user_id}");
 
     if (res['success'] == true) {
+      print("------proposal--====");
       var data = res['properties'] as List;
       print(data);
       if (data != null || data.length != 0) {

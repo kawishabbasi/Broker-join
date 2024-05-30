@@ -21,7 +21,7 @@ class ProposalView extends StatelessWidget {
             ),
             child: const Center(
               child: Text(
-                "Proposal ",
+                "Proposal",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
               ),
             ),
@@ -38,8 +38,12 @@ class ProposalView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            print(viewModel.property_proposal[index].id);
-                            // Get.to(() => ProposalView());
+                            // print(viewModel.property_proposal[index].id);
+                            // // Get.to(() => ProposalView());
+                            // viewModel.property_id = viewModel
+                            //     .property_proposal[index].id
+                            //     .toString();
+                            // viewModel.accep_Clien_Proposal();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10),
@@ -97,7 +101,7 @@ class ProposalView extends StatelessWidget {
                                             ),
                                             Text(
                                               viewModel
-                                                  .property_proposal[index].id
+                                                  .property_proposal[index].id!
                                                   .toString(),
                                               style: const TextStyle(
                                                   fontSize: 15,
@@ -110,7 +114,7 @@ class ProposalView extends StatelessWidget {
                                       ],
                                     ),
                                     SizedBox(height: 2.h),
-                                    Text(
+                                    const Text(
                                         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. essentially unchanged. It was popularised publishing."),
                                     SizedBox(height: 2.h),
                                     Spacer(),
@@ -125,22 +129,33 @@ class ProposalView extends StatelessWidget {
                                               color: Colors.white,
                                               borderRadius:
                                                   BorderRadius.circular(20)),
-                                          child: Center(
+                                          child: const Center(
                                             child: Text("Chat"),
                                           ),
                                         ),
-                                        Container(
-                                          height: 6.h,
-                                          width: 30.w,
-                                          decoration: BoxDecoration(
-                                              color: Colors.black,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                            child: Text(
-                                              "Accept",
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                        GestureDetector(
+                                          onTap: () {
+                                            print(viewModel
+                                                .property_proposal[index].id);
+                                            // Get.to(() => ProposalView());
+                                            viewModel.property_id = viewModel
+                                                .property_proposal[index].id
+                                                .toString();
+                                            viewModel.accep_Clien_Proposal();
+                                          },
+                                          child: Container(
+                                            height: 6.h,
+                                            width: 30.w,
+                                            decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: const Center(
+                                              child: Text(
+                                                "Accept",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                             ),
                                           ),
                                         )

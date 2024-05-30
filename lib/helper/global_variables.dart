@@ -14,6 +14,9 @@ class GlobalVariables {
   static String user_email = '';
   static String user_no = '';
   static String ClientsSingleProperty_id = '';
+  static String user_type = '';
+  static String client_proposal_property = '';
+
   //--------------------------
   static RxString headline = ''.obs;
   static RxString current_company = ''.obs;

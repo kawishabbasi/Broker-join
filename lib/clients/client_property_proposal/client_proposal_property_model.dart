@@ -6,12 +6,12 @@ class client_proposal_property {
   String? propertyType;
   String? size;
   String? bedrooms;
-  Null? terrace;
+  int? terrace;
   String? price;
   String? floors;
   String? bathrooms;
   String? view;
-  Null? brokerCommission;
+  int? brokerCommission;
   int? timeline;
   String? createdAt;
   String? updatedAt;

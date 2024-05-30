@@ -24,10 +24,8 @@ class SignUpViewModel extends GetxController {
   }
 
   final List<String> items = [
-    'Accountant',
-    'Lawyer',
-    'Engineering',
-    'Scientist',
+    'User',
+    'Broker',
   ];
 
   final List<String> gameList = [
@@ -56,9 +54,12 @@ class SignUpViewModel extends GetxController {
       GlobalVariables.showLoader.value = false;
       GlobalVariables.number = res["data"]['phone_no'];
       GlobalVariables.user_id = res["data"]['id'];
+      GlobalVariables.user_type = selectedValue2.value.toString();
+
       print("----------------------number-----------------------------------");
       print(GlobalVariables.number);
       print(GlobalVariables.user_id);
+      print(GlobalVariables.user_type);
       print("----------------------number-----------------------------------");
       Get.to(() => PhoneNoVerifyView());
     } else {

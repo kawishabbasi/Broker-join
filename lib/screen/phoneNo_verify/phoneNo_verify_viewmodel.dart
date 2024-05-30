@@ -1,3 +1,4 @@
+import 'package:broker_join/clients/clients_main_page/clients_main_view.dart';
 import 'package:broker_join/helper/api_base_helper.dart';
 import 'package:broker_join/helper/getx_helper.dart';
 import 'package:broker_join/helper/global_variables.dart';
@@ -23,7 +24,11 @@ class PhoneNoVerifyViewModel extends GetxController {
       // print(GlobalVariables.token);
       print("--------------------otp--------------");
       GlobalVariables.showLoader.value = false;
-      Get.to(() => MainView());
+      if (GlobalVariables.user_type == "Broker") {
+        Get.to(() => MainView());
+      } else if (GlobalVariables.user_type == "User") {
+        Get.to(() => ClientsMainPage());
+      }
     } else {
       //GlobalVariables.showLoader == true;
       // GlobalVariables.showLoader.value = false;
